@@ -277,16 +277,18 @@
   <div class="divider"></div>
 
   <div class="player">
-    <iframe
-      width="260" height="66"
-      src="https://www.youtube.com/embed/OFcKm-5jSQE?rel=0"
-      title="Orbiter - Noah Kahan"
-      frameborder="0"
-      style="border-radius: 14px;"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen>
-    </iframe>
+    <button class="play-btn" id="playBtn" aria-label="Play song">
+      <svg viewBox="0 0 24 24" fill="currentColor" id="playIcon"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+    <div class="track-info">
+      <div class="track-title">Peace Acoustic Folk</div>
+      <div class="track-artist">DIAMOND_TUNES</div>
+    </div>
   </div>
+
+  <audio id="bgMusic" loop>
+    <source src="background.mp3" type="audio/mpeg">
+  </audio>
 
   <div class="gallery-label">A few moments worth orbiting back to</div>
   <div class="gallery">
@@ -337,7 +339,24 @@
   }
   draw();
 
-  // Playback handled natively by the embedded YouTube player.
+  // Play/pause
+  const audio = document.getElementById('bgMusic');
+  const btn = document.getElementById('playBtn');
+  const icon = document.getElementById('playIcon');
+  let playing = false;
+
+  btn.addEventListener('click', () => {
+    if(!playing){
+      audio.play().catch(()=>{
+        alert('Add "background.mp3" next to this page to enable playback.');
+      });
+      icon.innerHTML = '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
+    } else {
+      audio.pause();
+      icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+    }
+    playing = !playing;
+  });
 </script>
 
 </body>
